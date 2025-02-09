@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коэффициент корреляции Пирсона</title>
+</head>
+<body>
+    <h4>472654</h4>
+    <script>
+        function parseParams(url) {
+            const params = {};
+            const [base, query] = url.split('?');
+            if (query) {
+                query.split('&').forEach(param => {
+                    const [key, value] = param.split('=');
+                    params[key] = value ? value.split(',').map(Number) : [];
+                });
+            }
+            return params;
+        }
+
+        function pearsonCorrelation(x, y) {
+            const n = x.length;
+            const sumX = x.reduce((a, b) => a + b, 0);
+            const sumY = y.reduce((a, b) => a + b, 0);
+            const sumXY = x.reduce((sum, xi, i) => sum + xi * y[i], 0);
+            const sumX2 = x.reduce((sum, xi) => sum + xi * xi, 0);
+            const sumY2 = y.reduce((sum, yi) => sum + yi * yi, 0);
+            const numerator = n * sumXY - sumX * sumY;
+            const denominator = Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
+            return denominator ? numerator / denominator : 0;
+        }
+
+        const params = parseParams(location.href);
+        const A = params.A || [];
+        const B = params.B || [];
+        if (A.length && B.length) {
+            const correlation = pearsonCorrelation(A, B);
+            const result = Math.abs(correlation).toFixed(3);
+            document.title = result;
+        } else {
+            document.title = "0.000"; // default value if no data
+        }
+    </script>
+</body>
+</html>
