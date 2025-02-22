@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Страница HTML5</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h4>472654</h4>
+    <button id="bt" onclick="
+        const article = document.createElement('article');
+        document.body.appendChild(article);
+        
+        for (let i = 0; i < 1000; i++) {
+            const div = document.createElement('div');
+            div.id = 'i' + i;
+            div.textContent = 'элемент номер ' + div.id;
+            article.appendChild(div);
+        }
+    ">Выполнить задание</button>    
+</body>
+</html>
