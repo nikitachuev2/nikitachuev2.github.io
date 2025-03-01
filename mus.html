@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Плейлист</title>
+</head>
+<body>
+    <h1>Плейлист на электрогитаре</h1>
+    <select id="playlist">
+        <option value="https://gitarshkola.ru/wp-content/uploads/2015/06/Smoke-On-The-Water.mp3">Smoke On The Water</option>
+        <option value="https://gitarshkola.ru/wp-content/uploads/2015/06/Enter-Sandman.mp3">Enter Sandman</option>
+        <option value="https://gitarshkola.ru/wp-content/uploads/2015/06/Crazy-Train.mp3">Crazy Train</option>
+        <option value="https://gitarshkola.ru/wp-content/uploads/2015/06/Back-In-Black.mp3">Back In Black</option>
+    </select>
+    <button id="playBTN">Проиграть</button>
+    <audio id="audioPlayer" controls>
+        <source id="audioSource" src="" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const startplay = document.getElementById('playBTN');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const audioSource = document.getElementById('audioSource');
+        const playlist = document.getElementById('playlist');
+
+        startplay.addEventListener('click', () => {
+            const selectedTrack = playlist.value;
+            audioSource.src = selectedTrack;
+            audioPlayer.load();
+            audioPlayer.play();
+        });
+    </script>
+</body>
+</html>
