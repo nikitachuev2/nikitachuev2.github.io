@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Имперский марш</title>
+</head>
+<body>
+    <h1>Имперский марш</h1>
+    <button onclick="playNote(261.63)">До (C)</button>
+    <button onclick="playNote(293.66)">Ре (D)</button>
+    <button onclick="playNote(329.63)">Ми (E)</button>
+    <button onclick="playNote(349.23)">Фа (F)</button>
+    <button onclick="playNote(392.00)">Соль (G)</button>
+    <button onclick="playNote(440.00)">Ля (A)</button>
+    <button onclick="playNote(493.88)">Си (B)</button>
+    <button onclick="playMelody()">Играть мелодию</button>
+
+    <script>
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playNote(frequency) {
+            const oscillator = audioContext.createOscillator();
+            oscillator.type = 'sine'; // Тип волны
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            oscillator.connect(audioContext.destination);
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.5); // Длительность ноты 0.5 секунды
+        }
+
+        function playMelody() {
+            const melody = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88]; // Частоты нот
+            let time = audioContext.currentTime;
+
+            melody.forEach((frequency) => {
+                const oscillator = audioContext.createOscillator();
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(frequency, time);
+                oscillator.connect(audioContext.destination);
+                oscillator.start(time);
+                oscillator.stop(time + 0.5); // Длительность каждой ноты 0.5 секунды
+                time += 0.6; // Интервал между нотами
+            });
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пример с обработчиком событий</title>
+    <style>
+        div {
+            background: #000;
+            padding: 20px 20px 20px 0px;
+        }
+        span {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+
+<div tabIndex="0">
+    <span id="chld" tabIndex="0">Потомок</span>
+</div>
+
+<script>
+    // Получаем родительский элемент (div)
+    const parentDiv = document.querySelector('div');
+
+    // Добавляем обработчик события keydown
+    parentDiv.addEventListener('keydown', function(e) {
+        // Выводим значения в консоль
+        console.log('this.tagName:', this.tagName);
+        console.log('e.target.tagName:', e.target.tagName);
+        console.log('e.currentTarget.tagName:', e.currentTarget.tagName);
+    });
+</script>
+
+</body>
+</html>
