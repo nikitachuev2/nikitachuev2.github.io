@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Имперский марш</title>
+    <title>Марш Мендельсона</title>
 </head>
 <body>
-    <h1>Имперский марш</h1>
+    <h1>Марш Мендельсона</h1>
     <button onclick="playNote(261.63)">До (C)</button>
     <button onclick="playNote(293.66)">Ре (D)</button>
     <button onclick="playNote(329.63)">Ми (E)</button>
@@ -21,7 +21,7 @@
 
         function playNote(frequency) {
             const oscillator = audioContext.createOscillator();
-            oscillator.type = 'sine'; // Тип волны
+            oscillator.type = 'sine'; // Используем синусоидальную волну для более мягкого звучания
             oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
             oscillator.connect(audioContext.destination);
             oscillator.start();
@@ -29,12 +29,18 @@
         }
 
         function playMelody() {
-            const melody = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88]; // Частоты нот
+            const melody = [
+                261.63, 293.66, 329.63, 261.63, 293.66, 329.63, 349.23,
+                392.00, 440.00, 392.00, 349.23, 329.63, 293.66, 261.63,
+                293.66, 329.63, 261.63, 293.66, 329.63, 349.23,
+                392.00, 440.00, 392.00, 349.23, 329.63, 293.66
+            ]; // Частоты нот для Марша Мендельсона
+
             let time = audioContext.currentTime;
 
             melody.forEach((frequency) => {
                 const oscillator = audioContext.createOscillator();
-                oscillator.type = 'sine';
+                oscillator.type = 'sine'; // Используем синусоидальную волну
                 oscillator.frequency.setValueAtTime(frequency, time);
                 oscillator.connect(audioContext.destination);
                 oscillator.start(time);
@@ -45,4 +51,3 @@
     </script>
 </body>
 </html>
-
