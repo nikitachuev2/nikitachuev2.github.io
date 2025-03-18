@@ -1,51 +1,96 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Марш Мендельсона</title>
+    <title>Соната № 16 Моцарта</title>
+    <style>
+        button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Марш Мендельсона</h1>
-    <button onclick="playNote(261.63)">До (C)</button>
-    <button onclick="playNote(293.66)">Ре (D)</button>
-    <button onclick="playNote(329.63)">Ми (E)</button>
-    <button onclick="playNote(349.23)">Фа (F)</button>
-    <button onclick="playNote(392.00)">Соль (G)</button>
-    <button onclick="playNote(440.00)">Ля (A)</button>
-    <button onclick="playNote(493.88)">Си (B)</button>
-    <button onclick="playMelody()">Играть мелодию</button>
+    <h1>Соната № 16 Вольфганга Амадея Моцарта</h1>
+    <div id="buttons"></div>
+    <br>
+    <button onclick="playMelody()">Воспроизвести мелодию</button>
 
     <script>
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Определяем частоты нот
+        const notes = [
+            { name: "До (C)", frequency: 261.63 },
+            { name: "Ре (D)", frequency: 293.66 },
+            { name: "Ми (E)", frequency: 329.63 },
+            { name: "Фа (F)", frequency: 349.23 },
+            { name: "Соль (G)", frequency: 392.00 },
+            { name: "Ля (A)", frequency: 440.00 },
+            { name: "Си (B)", frequency: 493.88 },
+            { name: "До (C5)", frequency: 523.25 }
+        ];
+
+        // Создаем кнопки для каждой ноты
+        notes.forEach(note => {
+            const button = document.createElement('button');
+            button.innerText = note.name;
+            button.onclick = () => playNote(note.frequency);
+            document.getElementById('buttons').appendChild(button);
+        });
 
         function playNote(frequency) {
             const oscillator = audioContext.createOscillator();
-            oscillator.type = 'sine'; // Используем синусоидальную волну для более мягкого звучания
+            const gainNode = audioContext.createGain();
+            
+            oscillator.type = 'sine'; // Используем синусоидальную волну
             oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-            oscillator.connect(audioContext.destination);
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Создаем эффект затухания для более естественного звучания
+            gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
+            
             oscillator.start();
-            oscillator.stop(audioContext.currentTime + 0.5); // Длительность ноты 0.5 секунды
+            oscillator.stop(audioContext.currentTime + 0.3); // Длительность ноты 0.3 секунды
         }
 
         function playMelody() {
             const melody = [
-                261.63, 293.66, 329.63, 261.63, 293.66, 329.63, 349.23,
-                392.00, 440.00, 392.00, 349.23, 329.63, 293.66, 261.63,
-                293.66, 329.63, 261.63, 293.66, 329.63, 349.23,
-                392.00, 440.00, 392.00, 349.23, 329.63, 293.66
-            ]; // Частоты нот для Марша Мендельсона
+                261.63, // До (C)
+                261.63, // До (C)
+                392.00, // Соль (G)
+                392.00, // Соль (G)
+                440.00, // Ля (A)
+                440.00, // Ля (A)
+                392.00, // Соль (G)
+                349.23, // Фа (F)
+                329.63, // Ми (E)
+                329.63  // Ми (E)
+            ];
 
             let time = audioContext.currentTime;
 
-            melody.forEach((frequency) => {
+            melody.forEach(frequency => {
                 const oscillator = audioContext.createOscillator();
-                oscillator.type = 'sine'; // Используем синусоидальную волну
+                const gainNode = audioContext.createGain();
+
+                oscillator.type = 'sine'; 
                 oscillator.frequency.setValueAtTime(frequency, time);
-                oscillator.connect(audioContext.destination);
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                gainNode.gain.setValueAtTime(0.5, time);
+                gainNode.gain.linearRampToValueAtTime(0, time + 0.3);
+
                 oscillator.start(time);
-                oscillator.stop(time + 0.5); // Длительность каждой ноты 0.5 секунды
-                time += 0.6; // Интервал между нотами
+                oscillator.stop(time + 0.3);
+
+                time += 0.4; // Увеличиваем время для следующей ноты
             });
         }
     </script>
