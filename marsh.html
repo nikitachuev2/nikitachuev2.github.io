@@ -1,98 +1,61 @@
 
-<!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Соната № 16 Моцарта</title>
-    <style>
-        button {
-            margin: 5px;
-            padding: 10px;
-            font-size: 16px;
-        }
-    </style>
+    <title>WEB-сольфеджио</title>
 </head>
 <body>
-    <h1>Соната № 16 Вольфганга Амадея Моцарта</h1>
-    <div id="buttons"></div>
-    <br>
-    <button onclick="playMelody()">Воспроизвести мелодию</button>
 
-    <script>
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Определяем частоты нот
-        const notes = [
-            { name: "До (C)", frequency: 261.63 },
-            { name: "Ре (D)", frequency: 293.66 },
-            { name: "Ми (E)", frequency: 329.63 },
-            { name: "Фа (F)", frequency: 349.23 },
-            { name: "Соль (G)", frequency: 392.00 },
-            { name: "Ля (A)", frequency: 440.00 },
-            { name: "Си (B)", frequency: 493.88 },
-            { name: "До (C5)", frequency: 523.25 }
-        ];
+<h1>«Вечерняя песня» («Город над вольной Невой») , созданной в 1957 году композитором Василием Соловьёвым-Седым на стихи Александра Чуркина.</h1>
 
-        // Создаем кнопки для каждой ноты
-        notes.forEach(note => {
-            const button = document.createElement('button');
-            button.innerText = note.name;
-            button.onclick = () => playNote(note.frequency);
-            document.getElementById('buttons').appendChild(button);
-        });
+<h3>Ноты мелодии:</h3>
+<ul>
+    <li><button onclick="playSound(octava['E4'], 1000)">E4</button></li>
+    <li><button onclick="playSound(octava['C4'], 1000)">C4</button></li>
+    <li><button onclick="playSound(octava['D4'], 1000)">D4</button></li>
+    <li><button onclick="playSound(octava['E4'], 1000)">E4</button></li>
+    <li><button onclick="playSound(octava['A4'], 1000)">A4</button></li>
+    <li><button onclick="playSound(octava['G#4'], 1000)">G#4</button></li>
+    <li><button onclick="playSound(octava['E4'], 1000)">E4</button></li>
+</ul>
 
-        function playNote(frequency) {
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.type = 'sine'; // Используем синусоидальную волну
-            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            // Создаем эффект затухания для более естественного звучания
-            gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
-            
-            oscillator.start();
-            oscillator.stop(audioContext.currentTime + 0.3); // Длительность ноты 0.3 секунды
-        }
+<h3>Проиграть всю мелодию</h3>
+<button onclick="playMelody()">Play Melody</button><br><br>
 
-        function playMelody() {
-            const melody = [
-                261.63, // До (C)
-                261.63, // До (C)
-                392.00, // Соль (G)
-                392.00, // Соль (G)
-                440.00, // Ля (A)
-                440.00, // Ля (A)
-                392.00, // Соль (G)
-                349.23, // Фа (F)
-                329.63, // Ми (E)
-                329.63  // Ми (E)
-            ];
+<script>
+const octava = {
+    'C4': 261.63,
+    'C#4': 277.18,
+    'D4': 293.66,
+    'D#4': 311.13,
+    'E4': 329.63,
+    'F4': 349.23,
+    'F#4': 369.99,
+    'G4': 392.00,
+    'G#4': 415.30,
+    'A4': 440.00,
+    'A#4': 466.16,
+    'B4': 493.88,
+    'P': 0 // Пауза
+};
 
-            let time = audioContext.currentTime;
+async function playSound(freq, dur) {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    oscillator.type = 'sine';
+    oscillator.frequency.value = freq;
+    oscillator.connect(audioContext.destination);
+    oscillator.start();
+    await new Promise(resolve => setTimeout(resolve, dur));
+    oscillator.stop();
+};
 
-            melody.forEach(frequency => {
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
+async function playMelody() {
+    const melody = ['E4', 1000, 'C4', 750, 'D4', 250, 'E4', 1000, 'A4', 750, 'G#4', 250, 'E4', 3000];
+    for (let i = 0; i < melody.length; i += 2) {
+        await playSound(octava[melody[i]], melody[i + 1]);
+    }
+};
+</script>
 
-                oscillator.type = 'sine'; 
-                oscillator.frequency.setValueAtTime(frequency, time);
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-
-                gainNode.gain.setValueAtTime(0.5, time);
-                gainNode.gain.linearRampToValueAtTime(0, time + 0.3);
-
-                oscillator.start(time);
-                oscillator.stop(time + 0.3);
-
-                time += 0.4; // Увеличиваем время для следующей ноты
-            });
-        }
-    </script>
 </body>
 </html>
