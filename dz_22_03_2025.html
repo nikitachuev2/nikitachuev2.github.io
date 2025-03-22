@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Количество простых чисел</title>
+</head>
+<body>
+<h4>472654</h4>
+<script>
+    function isPrime(num) {
+        if (num <= 1) return false;
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i === 0) return false;
+        }
+        return true;
+    }
+
+    const params = window.location.href.split('?')[1];
+    const N = parseInt(params, 10);
+
+    if (!isNaN(N) && N >= 2) {
+        let primeCount = 0;
+
+        // Считаем количество простых чисел от 2 до N включительно
+        for (let i = 2; i <= N; i++) {
+            if (isPrime(i)) {
+                primeCount++;
+            }
+        }
+
+        // Устанавливаем заголовок окна
+        document.title = primeCount.toString();
+    } else {
+        document.title = "Некорректное значение";
+    }
+</script>
+</body>
+</html>
