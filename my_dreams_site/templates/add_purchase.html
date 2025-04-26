@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Purchase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        input[type="number"] {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Добавьте свою покупку</h1>
+    <p>Выберите категорию из списка наиболее популярных расходов и укажите сумму, которую вы потратили. Это поможет вам лучше отслеживать ваш бюджет!</p>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <label for="category">Категория:</label>
+        <select name="category" required>
+            <option value="" disabled selected>Выберите категорию</option>
+            <option value="еда">Еда</option>
+            <option value="транспорт">Транспорт</option>
+            <option value="развлечения">Развлечения</option>
+            <option value="жилище">Жилище</option>
+            <option value="медицинские услуги">Медицинские услуги</option>
+            <option value="одежда">Одежда</option>
+            <option value="учеба">Учеба</option>
+            <option value="спорт">Спорт</option>
+            <option value="подарки">Подарки</option>
+            <option value="путешествия">Путешествия</option>
+        </select>
+        <br>
+        <label for="amount">Сумма:</label>
+        <input type="number" step="0.01" name="amount" required>
+        <br>
+        <button type="submit">Добавить покупку</button>
+    </form>
+    <a href="{{ url_for('home') }}">Вернуться на главную страницу</a>
+</body>
+</html>

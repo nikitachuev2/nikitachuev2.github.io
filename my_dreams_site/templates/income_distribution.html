@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Distribution</title>
+</head>
+<body>
+    <h1>Распределение Вашего Дохода</h1>
+    <p>Здесь показано, как вы можете распределить свои доходы для достижения ваших финансовых целей!</p>
+    <p>Общий доход: {{ total_income }} рублей</p>
+    <p>Сбережения (20%): {{ savings }} рублей</p>
+    <p>Потребление (50%): {{ consumption }} рублей</p>
+    <p>Мечты (30%): {{ dreams }} рублей</p>
+    <a href="{{ url_for('home') }}">Вернуться на главную страницу</a>
+</body>
+</html>

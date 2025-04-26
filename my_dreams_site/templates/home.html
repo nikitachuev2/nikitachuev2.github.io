@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Главная</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 2.2em;
+        }
+        header h2 {
+            margin: 5px 0 0;
+            font-weight: 400;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        nav {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        nav h3 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #222;
+        }
+        ul.menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        ul.menu li {
+            background-color: white;
+            margin-bottom: 15px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 7px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        ul.menu li:hover {
+            box-shadow: 0 6px 12px rgba(74,144,226,0.3);
+            cursor: pointer;
+        }
+        ul.menu li a {
+            color: #4a90e2;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.1em;
+            flex-shrink: 0;
+            margin-right: 15px;
+            min-width: 180px;
+            transition: color 0.3s ease;
+        }
+        ul.menu li a:hover {
+            color: #2c5bb8;
+        }
+        ul.menu li span.description {
+            flex-grow: 1;
+            color: #666;
+            font-weight: 400;
+            font-size: 0.95em;
+            user-select: none;
+        }
+        .logout {
+            display: block;
+            max-width: 700px;
+            margin: 30px auto;
+            text-align: right;
+            padding: 0 20px;
+        }
+        .logout a {
+            color: #fff;
+            background-color: #d9534f;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .logout a:hover {
+            background-color: #c9302c;
+        }
+        @media(max-width: 600px) {
+            ul.menu li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            ul.menu li a {
+                margin-bottom: 8px;
+
+
+                min-width: auto;
+            }
+            .logout {
+                padding: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в Ваше Финансовое Управление!</h1>
+        <h2>Ваш баланс: {{ balance }} рублей</h2>
+    </header>
+
+    <nav>
+        <h3>Что вы хотите сделать?</h3>
+        <ul class="menu">
+            <li>
+                <a href="{{ url_for('add_purchase') }}">Добавить покупку</a>
+                <span class="description">Отслеживайте свои расходы по категориям.</span>
+            </li>
+            <li>
+                <a href="{{ url_for('goals') }}">Установить Цели</a>
+                <span class="description">Определите свои мечты и накопите на них.</span>
+            </li>
+            <li>
+                <a href="{{ url_for('add_contribution') }}">Добавить Внесение Средств</a>
+                <span class="description">Пополните свои накопления.</span>
+            </li>
+            <li>
+                <a href="{{ url_for('income_distribution') }}">Распределение Дохода</a>
+                <span class="description">Узнайте, как лучше распределить свои средства.</span>
+            </li>
+            <li>
+                <a href="{{ url_for('expense_analysis') }}">Анализ Расходов</a>
+                <span class="description">Изучите свои расходы за последний месяц.</span>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="logout">
+        <a href="{{ url_for('logout') }}">Выйти</a>
+    </div>
+</body>
+</html>

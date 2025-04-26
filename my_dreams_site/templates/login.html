@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Вход в систему</h1>
+    <p>Введите свои учетные данные, чтобы получить доступ к вашему финансовому управлению.</p>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.email.label }} {{ form.email(size=32) }}<br>
+        {{ form.password.label }} {{ form.password(size=32) }}<br>
+        {{ form.submit() }}
+    </form>
+    <p><a href="{{ url_for('register') }}">Не зарегистрированы? Создайте аккаунт!</a></p>
+    <a href="{{ url_for('home') }}">Вернуться на главную страницу</a>
+</body>
+</html>
+

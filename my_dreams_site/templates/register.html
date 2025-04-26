@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <h1>Регистрация нового пользователя</h1>
+    <p>Заполните форму ниже, чтобы создать свою учетную запись. Это необходимо для того, чтобы вы могли отслеживать свои расходы и мечты!</p>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.email.label }} {{ form.email(size=32) }}<br>
+        {{ form.password.label }} {{ form.password(size=32) }}<br>
+        {{ form.submit() }}
+    </form>
+    <p><a href="{{ url_for('login') }}">Уже есть аккаунт? Войдите.</a></p>
+    <a href="{{ url_for('home') }}">Вернуться на главную страницу</a>
+</body>
+</html>
+

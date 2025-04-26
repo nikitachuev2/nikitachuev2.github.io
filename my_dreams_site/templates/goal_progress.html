@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Progress</title>
+</head>
+<body>
+    <h1>Прогресс вашей мечты</h1>
+    <p>Название мечты: {{ goal.dream_name }}</p>
+    <p>Целевая сумма: {{ goal.target_amount }} рублей</p>
+    <p>Текущая сумма: {{ goal.current_amount }} рублей</p>
+    <p>Прогресс: {{ progress }}%</p>
+    <a href="{{ url_for('home') }}">Вернуться на главную страницу</a>
+</body>
+</html>
+

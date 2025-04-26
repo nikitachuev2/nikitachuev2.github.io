@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Установить Цели</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .goal-info {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .goal-empty {
+            color: #999;
+        }
+        /* Стиль для кнопки калькулятора */
+        .calc-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .calc-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Установите ваши мечты и цели</h1>
+    <p>Определите свою мечту, указав её название и сумму, которую вы хотите накопить. Это шаг к достижению ваших финансовых целей!</p>
+    
+    <!-- Блок для отображения текущей цели -->
+    <div class="goal-info">
+        {% if goal %}
+            <h2>Текущая цель:</h2>
+            <p>Название мечты: <strong>{{ goal.dream_name }}</strong></p>
+            <p>Сумма цели: <strong>{{ goal.target_amount }} рублей</strong></p>
+            <p>Осталось накопить: <strong>{{ goal.target_amount - current_amount }} рублей</strong></p>
+        {% else %}
+            <h2 class="goal-empty">У вас нет установленной цели.</h2>
+        {% endif %}
+        <!-- Ссылка на кредитный калькулятор -->
+        <a href="{{ url_for('loan_calculator') }}" class="calc-button">Рассчитать кредит</a>
+    </div>
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <label for="dream_name">Название мечты:</label>
+        <input type="text" id="dream_name" name="dream_name" required><br><br>
+        {{ form.target_amount.label }} {{ form.target_amount(size=32) }}<br><br>
+        {{ form.submit() }}
+    </form>
+    <br>
+    <a href="{{ url_for('home') }}">Вернуться на главную страницу</a>
+</body>
+</html>
